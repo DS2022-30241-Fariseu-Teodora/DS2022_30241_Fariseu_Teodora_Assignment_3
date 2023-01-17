@@ -1,0 +1,18 @@
+ul {
+    width: 80%;
+    list-style-type: none;
+    padding: 5px;
+}
+li {
+    padding: 5px 20px;
+    margin: 10px;
+    background: #2c3e50;
+    color: white;
+}
+input {
+    border-width: 1px;
+    border-color: gray;
+    padding: 3px;
+    margin: 3px;
+    border-radius: 5px;
+}

@@ -1,0 +1,59 @@
+{
+  "name": "ds2022-fariseu-teodora-30241-a1",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@vuepic/vue-datepicker": "^3.5.3",
+    "axios": "^1.1.3",
+    "chart.js": "^3.9.1",
+    "core-js": "^3.8.3",
+    "google-protobuf": "^3.21.2",
+    "grpc-web": "^1.0.7",
+    "moment": "^2.29.4",
+    "proto-ui": "^1.0.1",
+    "sockjs-client": "^1.6.1",
+    "sweetalert2": "^11.6.16",
+    "vue": "^3.2.13",
+    "vue-chartjs": "^4.1.2",
+    "vue-router": "^4.0.13",
+    "webstomp-client": "^1.2.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "^5.0.8",
+    "browserify": "^16.2.2",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "webpack": "^5.75.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "ignorePatterns": [ "**/*_pb.js","chat.ts" ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}

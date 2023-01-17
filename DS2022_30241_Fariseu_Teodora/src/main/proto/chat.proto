@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.ds2022_30241_fariseu_teodora.grpc";
+option java_outer_classname = "HelloWorldProto";
+
+message ChatMessage {
+    string from = 1;
+    string msg = 2;
+    string time = 3;
+}
+message Empty {}
+
+service ChatService {
+    rpc sendMsg(ChatMessage) returns (Empty) {}
+}

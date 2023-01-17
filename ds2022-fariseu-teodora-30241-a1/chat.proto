@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message ChatMessage {
+    string from = 1;
+    string msg = 2;
+    string time = 3;
+}
+message Empty {}
+
+service ChatService {
+    rpc sendMsg(ChatMessage) returns (Empty) {}
+}

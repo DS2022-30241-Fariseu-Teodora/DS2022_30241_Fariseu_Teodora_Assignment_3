@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  energy-db:
+    image: postgres
+    container_name: energy-db
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres"]
+      timeout: 45s
+      interval: 10s
+      retries: 5
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=energy-db
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./sql/data.sql:/docker-entrypoint-initdb.d/data.sql
+    ports: 
+      - "5432:5432"
+  vuejs:
+    container_name: frontend
+    build: './ds2022-fariseu-teodora-30241-a1'
+    ports:
+      - "3000:8080"
+      - "8420:9090"
+      - "9901:9901"
+  demo-be:
+    depends_on:
+      - energy-db
+    container_name: backend
+    image: backend
+    build: './DS2022_30241_Fariseu_Teodora'
+    restart: always
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    environment:
+      - DB_IP=energy-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=root
+      - DB_DBNAME=energy-db
+      - RMQ_IP=rabbit-mq
+      - RMQ_PORT=5672
+      - RMQ_USER=guest
+      - RMQ_PASSWORD=guest
