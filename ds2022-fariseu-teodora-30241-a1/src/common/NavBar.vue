@@ -35,8 +35,8 @@ export default {
             this.connect();
           })
           .catch(this.SESSION = null);
-      this.$router.go(0)
       this.$router.push("/")
+      this.$router.go(1)
     },
     connect() {
       this.socket = new SockJS(HOST+'ws-message')
@@ -69,7 +69,7 @@ export default {
   },
   created() {
     if(localStorage.getItem(TOKEN) !== undefined && localStorage.getItem(TOKEN) !== 'null' ) {
-      axios.get(HOST + 'getSessionDetails',{headers:{energy_token: localStorage.getItem(TOKEN)}})
+      axios.get(HOST + 'getSessionDetails',{ headers:{energy_token: localStorage.getItem(TOKEN)}})
           .then(response => {
             this.SESSION = response.data;
             this.connect();
@@ -78,6 +78,8 @@ export default {
             console.log(err);
             this.SESSION = null;
             localStorage.setItem(TOKEN,null);
+            router.push('/login')
+            router.go(1)
           });
     }
   }

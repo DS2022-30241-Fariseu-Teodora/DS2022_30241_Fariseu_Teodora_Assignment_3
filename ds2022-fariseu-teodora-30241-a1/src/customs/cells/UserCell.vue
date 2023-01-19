@@ -18,7 +18,5 @@ export default {
 </script>
 
 <style scoped>
-.cell {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-}
+@import "@/assets/vertical-list-style.css";
 </style>

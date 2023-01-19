@@ -18,14 +18,12 @@ services:
     volumes:
       - ./sql/data.sql:/docker-entrypoint-initdb.d/data.sql
     ports: 
-      - "5432:5432"
+      - "5433:5432"
   vuejs:
     container_name: frontend
     build: './ds2022-fariseu-teodora-30241-a1'
     ports:
-      - "3000:8080"
-      - "8420:9090"
-      - "9901:9901"
+      - "3000:80"
   demo-be:
     depends_on:
       - energy-db

@@ -29,7 +29,7 @@ export default {
 
 <template>
   <ul>
-    <li v-if="!items.length">
+    <li v-if="items.length<1">
       No items
     </li>
     <li v-for="item in items" :key = item.id>

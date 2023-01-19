@@ -1,5 +1,6 @@
 package com.example.ds2022_30241_fariseu_teodora.dto.user;
 
+import com.example.ds2022_30241_fariseu_teodora.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -20,11 +20,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.example.ds2022_30241_fariseu_teodora.service.SiteUserService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +39,7 @@ public class HomeController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
@@ -44,6 +47,7 @@ public class HomeController {
 
     @PostMapping(value = "/registerAccount")
     public ResponseEntity<String> addUser(@Valid @RequestBody RegisterDTO newUser) {
+        log.info("Registering account...");
         try {
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             userService.registerAccount(newUser);
@@ -56,6 +60,7 @@ public class HomeController {
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO credentials) {
         try {
+            log.info("Logging in user "+credentials.getUsername());
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (DisabledException e) {

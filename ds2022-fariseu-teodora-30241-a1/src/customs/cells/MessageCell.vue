@@ -1,8 +1,11 @@
 <template>
-  <div id = "container">
-    <p v-if="!this.$props.message.isFromMe">{{this.$props.message.username}}</p>
-    <h2 class="my-message" v-if="this.$props.message.isFromMe">{{this.$props.message.message}}</h2>
-    <h2 class="normal-message" v-else>{{this.$props.message.message}}</h2>
+  <div v-if="this.$props.message.isFromMe" class="container darker">
+
+    <h2 class="right">{{this.$props.message.message}}</h2>
+  </div>
+  <div v-else class="container">
+    <p class="left person" >{{this.$props.message.username}}</p>
+   <h2 class="left">{{this.$props.message.message}}</h2>
   </div>
 </template>
 
@@ -16,18 +19,33 @@ export default {
 </script>
 
 <style scoped>
-.normal-message {
-  align-self: self-start;
-  background-color: #2c3e50;
-  color: white;
-  width: 200px;
-  border-radius: 3px;
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
 }
-.my-message {
-  align-self: self-end;
-  background-color: #647eff;
-  color: white;
-  width: 200px;
-  border-radius: 3px;
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+.person {
+  color: black;
+  padding: 3px;
+}
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }
 </style>

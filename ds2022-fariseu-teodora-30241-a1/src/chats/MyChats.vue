@@ -12,7 +12,7 @@
     <NewChat></NewChat>
   </div>
   <div v-else class="left-part">
-  <ConversationView :discussion="this.selectedChat"></ConversationView>
+  <ConversationView :discussion="this.selectedChat" :session-id="this.SESSION" :username = "this.sname"></ConversationView>
   </div>
 </div>
 </template>
@@ -23,6 +23,9 @@ import NewChat from "@/chats/NewChat";
 import ChatCell from "@/customs/cells/ChatCell";
 import GenericList from "@/customs/lists/GenericList";
 import ConversationView from "@/chats/ConversationView";
+import {HOST, TOKEN} from "@/common/constants";
+import axios from "axios";
+import {router} from "@/main";
 export default {
   name: "MyChats",
   components: {ConversationView, ChatCell, NewChat, GenericList},
@@ -32,7 +35,9 @@ export default {
       newChatMode: false,
       path: "chat/myChats",
       selectedChat: null,
-      chat: new Chat()
+      chat: new Chat(),
+      SESSION: "",
+      sname: "",
     }
   },
   methods: {
@@ -48,6 +53,19 @@ export default {
     newChat(){
       this.newChatMode = true
     }
+  },
+  beforeMount() {console.log(localStorage.getItem(TOKEN))
+    axios.get(HOST + "getSessionDetails",{
+      headers: {
+        energy_token: localStorage.getItem(TOKEN)
+      }
+    }).then(response => {
+      this.SESSION = response.data.id
+      this.sname = response.data.username
+    })
+        .catch(err => {console.log(err); this.SESSION = null;
+          router.push('/login')
+          router.go(1)});
   }
 }
 </script>

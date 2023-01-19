@@ -7,7 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,4 +39,6 @@ public class SiteUser {
     private Set<Chat> discussions;
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Message> messages;
+    @ManyToMany(mappedBy = "seenBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Message> seenBy;
 }

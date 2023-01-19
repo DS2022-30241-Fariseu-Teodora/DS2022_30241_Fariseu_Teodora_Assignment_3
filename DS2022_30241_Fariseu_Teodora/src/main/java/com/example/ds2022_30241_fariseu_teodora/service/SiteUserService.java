@@ -39,14 +39,6 @@ public class SiteUserService implements UserDetailsService {
     public UserDetails login(LoginDTO user) throws Exception {
         return loadUserByUsername(user.getUsername());
     }
-    public SessionDTO initSession(LoginDTO user) throws Exception{
-        SiteUser userDAO = repo.findOneByUsername(user.getUsername()).orElse(null);
-        if(userDAO == null)
-            throw new Exception("Username does not exist");
-        if(userDAO.getPassword().equals(user.getPassword()))
-            return modelMapper.map(userDAO, SessionDTO.class);
-        throw new Exception("Password is incorrect");
-    }
     public List<UserProfileDTO> allUsers() {
         return repo.findAllByRole(Role.USER).stream().map(user -> modelMapper.map(user, UserProfileDTO.class)).collect(Collectors.toList());
     }

@@ -1,18 +1,180 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2023-01-19 11:26:45
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 214 (class 1259 OID 32936)
+-- Name: chat; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.chat (
+    chat_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.chat OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 32941)
+-- Name: chat_participant; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.chat_participant (
+    chat_id character varying(255) NOT NULL,
+    user_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.chat_participant OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 16528)
+-- Name: device_model; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.device_model (
+    model_id character varying(255) NOT NULL,
+    max_device_consumption real,
+    model_name character varying(255),
+    serial_number character varying(255)
+);
+
+
+ALTER TABLE public.device_model OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16481)
+-- Name: energy_consumption; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.energy_consumption (
+    entry_id character varying(255) NOT NULL,
+    "timestamp" timestamp without time zone,
+    value_consumed double precision,
+    device_id character varying(255)
+);
+
+
+ALTER TABLE public.energy_consumption OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 49308)
+-- Name: message; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.message (
+    message_id character varying(255) NOT NULL,
+    message character varying(255) NOT NULL,
+    read boolean,
+    sent_date double precision,
+    user_id character varying(255),
+    discussion_id character varying(255)
+);
+
+
+ALTER TABLE public.message OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 16495)
+-- Name: monitoring_device; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.monitoring_device (
+    device_id character varying(255) NOT NULL,
+    description character varying(255),
+    address character varying(255),
+    user_id character varying(255),
+    model_id character varying(255)
+);
+
+
+ALTER TABLE public.monitoring_device OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16540)
+-- Name: notification; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.notification (
+    notification_id character varying(255) NOT NULL,
+    message character varying(255),
+    device_id character varying(255),
+    "timestamp" timestamp without time zone
+);
+
+
+ALTER TABLE public.notification OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 41140)
+-- Name: seener; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.seener (
+    message_id character varying(255) NOT NULL,
+    user_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.seener OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16502)
+-- Name: site_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.site_user (
+    user_id character varying(255) NOT NULL,
+    e_mail character varying(255) NOT NULL,
+    joined_at timestamp without time zone NOT NULL,
+    password character varying(255) NOT NULL,
+    username character varying(255) NOT NULL,
+    role integer NOT NULL
+);
+
+
+ALTER TABLE public.site_user OWNER TO postgres;
+
+--
+-- TOC entry 3336 (class 0 OID 16481)
+-- Dependencies: 209
+-- Data for Name: energy_consumption; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
 INSERT INTO site_user(user_id, e_mail, joined_at,password,username, role)
- VALUES('1bc77f46-9cb0-4a66-99d7-b8672f55b87e','co.nt@depro.ba','2022-11-16 13:54:07.097137','deproba','contutz',0),
-('23a3cff9-41e1-47c2-a941-05966e66e848','cont@gmail.com','2022-11-06 10:56:48.475131','parola','cont', 0),
-('5939c752-3423-4c74-a6c6-908e5813a1ec','life',	'2022-11-06 10:53:54.208415','life','beautiful',0),
-('61e8b5fa-e1ef-4ad4-bc60-477f59333f0c','new.year@new.me','2022-11-06 22:18:07.165448','$2a$10$fiMuuNnI4PoPaxFYl2PVL.0IZhDW9.YEqCMkMoQrzl0x7pKvskDzy','newyear',0),
-('65687b6b-636b-4797-a3c7-ab82de4c7b5a','user.name@gmail.com','2022-11-06 21:30:37.487613','pass','user',0),	
-('4534','ad.min@yahoo.com',	'2022-11-15 16:47:29.94798','admin1234','admin',1 );
+VALUES
+('5939c752-3423-4c74-a6c6-908e5813a1ec','us.er@gmail.com','2023-01-01 01:45:27.810164','user123', 'user',0),	
+('735d34e8-b147-4a52-8e4c-7fad14b82d64','ad.min@yahoo.com',	'2023-01-01 01:42:45.719004','admin123','admin',1),
+("df5e5ba8-371a-448b-87e8-2c2dd424c292", "cont123@gmail.com", "2023-01-12 09:14:06.154018", "cont123","cont", 0),
+("3b30ef83-d81f-48b2-b49c-4bcb0cb709a6","admin1234@gmail.com", "2023-01-12 09:58:57.85648", "admin123","admin2",1);
 
 INSERT INTO device_model(model_id, max_device_consumption, model_name, serial_number )
- VALUES ('1d476242-a508-45fe-a3d0-73e9c9464e88',5,'Test','SN69420'),
+VALUES ('1d476242-a508-45fe-a3d0-73e9c9464e88',300,'Test','SN69420'),
 ('b0acb953-2017-44b4-8cf5-dc6565622e6c'	,15,'KM1','KM1-PMU2A-FLK'),
-('f801e811-f101-4839-a625-b157b219e053',30,	'ADW300','ADW300');
-
+('f801e811-f101-4839-a625-b157b219e053',600,	'ADW300','ADW300');
 INSERT INTO monitoring_device(device_id,description, address, user_id, model_id)
- VALUES('cdef0efe-6110-498d-be6e-87b070586128','Home','Observatorului Street no 34',	'5939c752-3423-4c74-a6c6-908e5813a1ec',	'f801e811-f101-4839-a625-b157b219e053'),	
+VALUES('cdef0efe-6110-498d-be6e-87b070586128','Home','Observatorului Street no 34',	'5939c752-3423-4c74-a6c6-908e5813a1ec',	'f801e811-f101-4839-a625-b157b219e053'),	
 ('f5c5e688-b259-4dc8-a147-1a3fffc9dc7a'	,null,'Str. Ceahlaului Nr 77','5939c752-3423-4c74-a6c6-908e5813a1ec','b0acb953-2017-44b4-8cf5-dc6565622e6c'),
 ('52c90c8c-bde7-4ca6-9df1-01a5542dbd6b', 'Here','Bd. Muncii 14','5939c752-3423-4c74-a6c6-908e5813a1ec','1d476242-a508-45fe-a3d0-73e9c9464e88');
 

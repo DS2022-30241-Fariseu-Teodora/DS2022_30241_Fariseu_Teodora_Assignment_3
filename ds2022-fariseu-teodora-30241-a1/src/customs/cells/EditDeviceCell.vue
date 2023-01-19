@@ -39,4 +39,5 @@ export default {
 
 <style scoped>
 @import "@/assets/form-style.css";
+@import "@/assets/vertical-list-style.css";
 </style>

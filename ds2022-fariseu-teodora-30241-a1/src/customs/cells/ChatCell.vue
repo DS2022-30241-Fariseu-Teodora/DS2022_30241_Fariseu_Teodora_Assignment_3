@@ -1,5 +1,5 @@
 <template>
-<div class="cell" @click="this.$emit('chatClicked',this.chat)">
+<div class="cell cell2" @click="this.$emit('chatClicked',this.chat)">
   <h2>{{this.$props.chat.name}}</h2>
   <h3>{{this.$props.chat.previewMessage}}</h3>
   <p v-if="this.$props.chat.unreadMessages > 0">{{this.$props.chat.unreadMessages}}</p>
@@ -27,5 +27,10 @@ export default {
 }
 .cell:hover {
   color: #42b983;
+}
+.cell2 {
+  padding: 0px !important;
+  margin: 0px !important;
+  border-bottom: 1px solid black;
 }
 </style>

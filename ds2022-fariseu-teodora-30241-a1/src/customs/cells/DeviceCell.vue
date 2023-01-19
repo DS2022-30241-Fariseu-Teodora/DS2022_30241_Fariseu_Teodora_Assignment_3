@@ -21,12 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.cell {
-  padding-bottom: 10px;
-  color: azure;
-  background-color: #2c3e50;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-}
+@import "@/assets/vertical-list-style.css";
 #other-info {
   display: flex;
   flex-direction: column;

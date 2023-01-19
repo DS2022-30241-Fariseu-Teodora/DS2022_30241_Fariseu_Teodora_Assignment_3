@@ -1,5 +1,5 @@
 <template>
-<div @click="this.enterOption" id=this.optionName>
+<div @click="this.enterOption" id=this.optionName class="cell">
 <h1> {{this.$props.option.optionName}}</h1>
   <h2>{{this.$props.option.description}}</h2>
 </div>
@@ -20,9 +20,5 @@ export default {
 </script>
 
 <style scoped>
-.cell {
-  background-color: #2c3e50;
-  color: white;
-  padding: 10px;
-}
+@import "@/assets/vertical-list-style.css";
 </style>

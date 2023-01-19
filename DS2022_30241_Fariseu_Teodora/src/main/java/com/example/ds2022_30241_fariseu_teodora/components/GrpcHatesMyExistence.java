@@ -2,11 +2,14 @@ package com.example.ds2022_30241_fariseu_teodora.components;
 
 import com.example.ds2022_30241_fariseu_teodora.dto.chat.MessageDTO;
 import com.example.ds2022_30241_fariseu_teodora.dto.chat.NewMessageDTO;
+import com.example.ds2022_30241_fariseu_teodora.dto.chat.SeenerListDTO;
 import com.example.ds2022_30241_fariseu_teodora.dto.chat.TypingDTO;
 import com.example.ds2022_30241_fariseu_teodora.dto.consumption.ConsumptionDTO;
 import com.example.ds2022_30241_fariseu_teodora.entity.Message;
 import com.example.ds2022_30241_fariseu_teodora.service.ChatService;
 import com.example.ds2022_30241_fariseu_teodora.service.MessageService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.websocket.server.PathParam;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -37,12 +42,8 @@ public class GrpcHatesMyExistence {
     @MessageMapping("/messageSent")
     public Boolean receiveMessage(@Payload NewMessageDTO message) {
         try {
-            log.info("Received message " +message.getMessage());
             messageService.newMessage(message);
-            MessageDTO messageDTO = new MessageDTO();
-            messageDTO.setRead(false);
-            messageDTO.setMessage(message.getMessage());
-            template.convertAndSend("/topic/conversation/"+message.getChatId(), messageDTO);
+            template.convertAndSend("/topic/conversation/"+message.getChatId(), message);
             return true;
         }catch (Exception e) {
             log.error(e.getMessage());
@@ -50,11 +51,15 @@ public class GrpcHatesMyExistence {
         }
     }
 
-    @SendTo("/topic/conversation/seen/{id}")
     @MessageMapping("/messageSeen/{id}")
-    public List<MessageDTO> ackMessage(@PathParam ("id") String chatId,@Payload List<MessageDTO> messages) {
-        messageService.acknowledge(messages);
-        return messages;
+    public void ackMessage(@PathParam ("id") String chatId, @Payload SeenerListDTO until) {
+        try {
+            log.info("Messages :"+until.getUntil()+" "+until.getUser());
+            messageService.acknowledge( until.getUntil(),chatId,until.getUser());
+            template.convertAndSend("/topic/conversation/seen/"+chatId,"aaa");
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
     }
 
     @MessageMapping("/typingStatus")
@@ -62,6 +67,11 @@ public class GrpcHatesMyExistence {
         template.convertAndSend("/topic/conversation/typeStatus/"+status.getChatId(), status.getIsTyping());
     }
 
+    @SendTo("/topic/conversation/seen/{id}")
+    public List<String> ackmMessage(@PathParam ("id") String chatId, @Payload String aa) {
+        log.info("seen by"+messageService.getSeen(chatId).stream().collect(Collectors.joining(",")));
+        return messageService.getSeen(chatId);
+    }
     @SendTo("/topic/conversation/{id}")
     public MessageDTO broadcastMessage(@Payload MessageDTO message) {
         log.info("Sending message back...");

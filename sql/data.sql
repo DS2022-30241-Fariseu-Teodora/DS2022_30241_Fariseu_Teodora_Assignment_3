@@ -1,3 +1,56 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2023-01-19 11:26:45
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 214 (class 1259 OID 32936)
+-- Name: chat; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.chat (
+    chat_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.chat OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 32941)
+-- Name: chat_participant; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.chat_participant (
+    chat_id character varying(255) NOT NULL,
+    user_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.chat_participant OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 16528)
+-- Name: device_model; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.device_model (
     model_id character varying(255) NOT NULL,
@@ -5,14 +58,46 @@ CREATE TABLE public.device_model (
     model_name character varying(255),
     serial_number character varying(255)
 );
+
+
 ALTER TABLE public.device_model OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16481)
+-- Name: energy_consumption; Type: TABLE; Schema: public; Owner: postgres
+--
+
 CREATE TABLE public.energy_consumption (
     entry_id character varying(255) NOT NULL,
     "timestamp" timestamp without time zone,
     value_consumed double precision,
     device_id character varying(255)
 );
+
+
 ALTER TABLE public.energy_consumption OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 49308)
+-- Name: message; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.message (
+    message_id character varying(255) NOT NULL,
+    message character varying(255) NOT NULL,
+    read boolean,
+    sent_date double precision,
+    user_id character varying(255),
+    discussion_id character varying(255)
+);
+
+
+ALTER TABLE public.message OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 16495)
+-- Name: monitoring_device; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.monitoring_device (
     device_id character varying(255) NOT NULL,
@@ -21,7 +106,14 @@ CREATE TABLE public.monitoring_device (
     user_id character varying(255),
     model_id character varying(255)
 );
+
+
 ALTER TABLE public.monitoring_device OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 16540)
+-- Name: notification; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.notification (
     notification_id character varying(255) NOT NULL,
@@ -30,7 +122,26 @@ CREATE TABLE public.notification (
     "timestamp" timestamp without time zone
 );
 
+
 ALTER TABLE public.notification OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 41140)
+-- Name: seener; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.seener (
+    message_id character varying(255) NOT NULL,
+    user_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.seener OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 16502)
+-- Name: site_user; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.site_user (
     user_id character varying(255) NOT NULL,
@@ -38,8 +149,7 @@ CREATE TABLE public.site_user (
     joined_at timestamp without time zone NOT NULL,
     password character varying(255) NOT NULL,
     username character varying(255) NOT NULL,
-    role integer NOT NULL,
-    last_used_token character varying(255)
+    role integer NOT NULL
 );
 
 
@@ -54,10 +164,10 @@ ALTER TABLE public.site_user OWNER TO postgres;
 
 INSERT INTO site_user(user_id, e_mail, joined_at,password,username, role)
 VALUES
-('5939c752-3423-4c74-a6c6-908e5813a1ec','us.er@gmail.com','2023-01-01 01:45:27.810164','$2a$10$HdNS6enhPs40hmfz7sdmh.igpmZYixf.dkyi0A/otPROiW87PNCjq', 'user',0),	
-('735d34e8-b147-4a52-8e4c-7fad14b82d64','ad.min@yahoo.com',	'2023-01-01 01:42:45.719004','$2a$10$fRJcsl7L0dCYL8Yf9b8onO8D52a1EVHs96AdcQvOBrSd8LLGi7iCm','admin',1),
-("df5e5ba8-371a-448b-87e8-2c2dd424c292", "cont123@gmail.com", "2023-01-12 09:14:06.154018", "$2a$10$DeHKro38jFX4tq/4IahiAe7A6QtnuVmC/Y28oynGm7PJ.CcutKP1m","cont", 0),
-("3b30ef83-d81f-48b2-b49c-4bcb0cb709a6","admin1234@gmail.com", "2023-01-12 09:58:57.85648", "$2a$10$X86O/WmQpOzWhc80e7Ob7OZ5OKT6f4KcaYvC9lFubMZTFTvboOvrK","admin2",1);
+('5939c752-3423-4c74-a6c6-908e5813a1ec','us.er@gmail.com','2023-01-01 01:45:27.810164','user123', 'user',0),	
+('735d34e8-b147-4a52-8e4c-7fad14b82d64','ad.min@yahoo.com',	'2023-01-01 01:42:45.719004','admin123','admin',1),
+("df5e5ba8-371a-448b-87e8-2c2dd424c292", "cont123@gmail.com", "2023-01-12 09:14:06.154018", "cont123","cont", 0),
+("3b30ef83-d81f-48b2-b49c-4bcb0cb709a6","admin1234@gmail.com", "2023-01-12 09:58:57.85648", "admin123","admin2",1);
 
 INSERT INTO device_model(model_id, max_device_consumption, model_name, serial_number )
 VALUES ('1d476242-a508-45fe-a3d0-73e9c9464e88',300,'Test','SN69420'),

@@ -2,6 +2,8 @@ package com.example.ds2022_30241_fariseu_teodora.dto.chat;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -11,7 +13,7 @@ public class MessageDTO {
     String username;
     String message;
     Boolean read;
-    @Setter(AccessLevel.NONE)
-    String sentDate;
-    Boolean isFromMe;
+    Double sentDate;
+    String senderId;
+    List<String> whoSaw;
 }

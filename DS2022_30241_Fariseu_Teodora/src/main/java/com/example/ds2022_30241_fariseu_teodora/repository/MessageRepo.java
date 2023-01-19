@@ -23,4 +23,5 @@ public interface MessageRepo extends JpaRepository<Message, String> {
     )
     Integer getUnreadMessagesAmount(String discussionId);
 
+    List<Message> findAllByDiscussionAndSentDateBeforeOrSentDateEquals(Chat discussion, Double sentDate, Double sentDate2);
 }

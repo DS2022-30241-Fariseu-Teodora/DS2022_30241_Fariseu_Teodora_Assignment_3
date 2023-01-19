@@ -1,7 +1,7 @@
 <template>
   <div class = "cell" >
     <h2>{{this.$props.user.username}}</h2>
-    <button class="cell-button" @click="this.$emit('userClicked',this.user)">{{this.$props.buttonText}}</button>
+    <button id="le-button" class="cell-button" @click="this.$emit('userClicked',this.user)">{{this.$props.buttonText}}</button>
   </div>
 </template>
 
@@ -13,16 +13,23 @@ export default {
     user: Object,
     buttonText: String,
   },
-  emits: ['userClicked']
+  emits: ['userClicked'],
+  watch: {
+    discussion: {
+      buttonText: true,
+      handler (val) {
+        document.getElementById('le-button').textContent = val
+      }
+    }
+  }
 }
 </script>
 
 <style scoped>
-.cell {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-}
+@import "@/assets/vertical-list-style.css";
 .cell-button{
   background-color: white;
   color: #2c3e50;
 }
+
 </style>

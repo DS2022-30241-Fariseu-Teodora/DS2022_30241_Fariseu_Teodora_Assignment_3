@@ -5,14 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class NewMessageDTO {
-    String message;
-    Double sentDate;
-    String userId;
-    String username;
-    String chatId;
+@NoArgsConstructor
+public class SeenerListDTO {
+    private Double until;
+    private String user;
 }

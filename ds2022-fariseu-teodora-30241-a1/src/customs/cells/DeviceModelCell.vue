@@ -17,8 +17,6 @@ export default {
 </script>
 
 <style scoped>
-.cell {
-  margin: 0px;
-  padding: 0px;
-}
+
+@import "@/assets/vertical-list-style.css";
 </style>
